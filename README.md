@@ -1,1 +1,1 @@
-# pokemon-nextjs
+# Pokemon App using NextJs
