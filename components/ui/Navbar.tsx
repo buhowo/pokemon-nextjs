@@ -8,7 +8,7 @@ export const Navbar = () => {
     const navbarStyle: CSSProperties = {
         alignContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme?.colors.accents1.value,
+        backgroundColor: theme?.colors.neutralShadow.value,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -25,7 +25,7 @@ export const Navbar = () => {
                 height={70}
             />
             <NextLink href='/' passHref>    
-                <Link block>
+                <Link>
                     <Text color='white' h2>P</Text>
                     <Text color='white' h3>okémon</Text>
                 </Link>
@@ -35,7 +35,7 @@ export const Navbar = () => {
 
             <NextLink href='/favorites' passHref>
                 <Link>
-                    <Text color='white'>Favoritos</Text>
+                    <Text color='primary'>Favoritos</Text>
                 </Link>
             </NextLink>
         </nav>

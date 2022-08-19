@@ -177,4 +177,5 @@ export interface Type {
 export interface MinifiedPokemon {
     name: string;
     sprites: Sprites;
+    id: number;
 }

@@ -25,6 +25,7 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 				<Card.Body css={{ padding: 12 }}>
 					<Card.Image src={img} width="100%" height={140} />
 				</Card.Body>
+				<Card.Divider />
 				<Card.Footer>
 					<Row justify='space-between'>
 						<Text transform='capitalize'>{name}</Text>
