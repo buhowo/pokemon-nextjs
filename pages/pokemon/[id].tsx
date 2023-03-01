@@ -4,13 +4,24 @@ import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
 
 import confetti from 'canvas-confetti';
 
-import { pokeApi } from '../api';
 import { Layout } from '../../components/layouts';
-import { MinifiedPokemon, Pokemon } from '../../interfaces';
+import { MinifiedPokemon } from '../../interfaces';
 import { localFavorites } from '../../utils';
+import { getPokeInfo } from '../../utils/getPokeInfo';
 
 interface Props {
 	pokemon: MinifiedPokemon;
+}
+
+const confettiOpts: confetti.Options = {
+	zIndex: 999,
+	particleCount: 100,
+	spread: 160,
+	angle: -100,
+	origin: {
+		x: 0.5, 
+		y: 0,
+	}
 }
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
@@ -24,16 +35,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
 		if(isInFavorites) return;
 
-		confetti({
-			zIndex: 999,
-			particleCount: 100,
-			spread: 160,
-			angle: -100,
-			origin: {
-				x: 0.5, 
-				y: 0,
-			}
-		})
+		confetti(confettiOpts);
 	}
 
 
@@ -116,16 +118,10 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	const { id } = params as { id: string };
-	const { data } = await pokeApi.get<Pokemon>(`/pokemon/${id}`);
-	const pokemon: MinifiedPokemon = {
-		name: data.name,
-		sprites: data.sprites,
-		id: data.id,
-	};
 
 	return {
 		props: {
-			pokemon
+			pokemon: await getPokeInfo(id)
 		}
 	};
 };

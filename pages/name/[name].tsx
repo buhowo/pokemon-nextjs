@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
+import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useEffect, useState } from "react";
 
-import confetti from 'canvas-confetti';
+import confetti from "canvas-confetti";
 
-import { Layout } from '../../components/layouts';
-import { Pokemon, PokemonListResponse, MinifiedPokemon } from '../../interfaces';
-import { localFavorites } from '../../utils';
-import { pokeApi } from '../api';
+import { Layout } from "../../components/layouts";
+import { MinifiedPokemon, PokemonListResponse } from "../../interfaces";
+import { localFavorites } from "../../utils";
+import { pokeApi } from "../api";
+import { getPokeInfo } from '../../utils/getPokeInfo';
 
 interface Props {
     pokemon: MinifiedPokemon;
@@ -117,15 +118,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const { name } = params as { name: string };
-    const { data } = await pokeApi.get<Pokemon>(`/pokemon/${name}`);
 
-    const pokemon: MinifiedPokemon = {
-        name: data.name,
-        sprites: data.sprites,
-        id: data.id,
-    }
-
-    return { props: { pokemon } };
+    return { props: { pokemon: await getPokeInfo(name) } };
 };
 
 
